@@ -1,0 +1,95 @@
+service: aws-node-express-api-project
+frameworkVersion: '3'
+
+plugins:
+  - serverless-aws-documentation
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  lambdaHashingVersion: 20201221
+  region: eu-central-1
+  iamRoleStatements:
+   - Effect: Allow
+     Action:
+       - dynamodb:*
+     Resource: "arn:aws:dynamodb:eu-central-1:506820257931:table/NewTodoTable"
+
+custom:
+  documentation:
+    api:
+      info:
+        version: '1.0.0'
+        title: Todo API
+        description: API for managing todos
+    models:
+      - name: Todo
+        description: A todo item
+        contentType: application/json
+        schema:
+          type: object
+          properties:
+            id:
+              type: string
+            todo:
+              type: string
+            completed:
+              type: boolean
+
+functions:
+  addTodo:
+    handler: src/addTodo.handler
+    events:
+      - http:
+          path: /addTodo
+          method: post
+  fetchTodos:
+    handler: src/fetchTodos.handler
+    events:
+      - http:
+          path: /fetchTodos
+          method: get
+          cors: true
+  fetchTodo:
+    handler: src/fetchTodo.handler
+    events:
+      - http:
+          path: /fetchTodo/{id}
+          method: get
+          cors: true
+  editTodo:
+    handler: src/editTodo.handler
+    events:
+      - http:
+          path: /editTodo/{id}
+          method: put
+          cors: true
+  updateCompleted:
+    handler: src/updateCompleted.handler
+    events:
+      - http:
+          path: /updateCompleted/{id}
+          method: put
+          cors: true
+  deleteTodo:
+    handler: src/deleteTodo.handler
+    events:
+      - http:
+          path: /deleteTodo/{id}
+          method: delete
+          cors: true
+
+resources:
+  Resources:
+    NewTodoTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: NewTodoTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+            
