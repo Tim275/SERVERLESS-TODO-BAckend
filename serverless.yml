@@ -43,6 +43,7 @@ functions:
       - http:
           path: /addTodo
           method: post
+          cors: true
   fetchTodos:
     handler: src/fetchTodos.handler
     events:
@@ -92,4 +93,3 @@ resources:
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-            

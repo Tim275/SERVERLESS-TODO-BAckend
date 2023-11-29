@@ -38,15 +38,17 @@ const year = date.getFullYear();
     id,
     todo,
     createdAt,
-    completed: false
+    completed: true
   }
 
   await dynamodb.put({
     TableName: "NewTodoTable",
     Item: newTodo
   }).promise();
-
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Credentials', 'true');
   res.status(200).json(newTodo);
+
 });
 
 module.exports.handler = serverless(app);
