@@ -30,8 +30,6 @@ const year = date.getFullYear();
   
   const createdAt = `${year}-${month}-${day}; ${hours}:${minutes}:${seconds}`;
 
-
-
   const id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER); // generates a random number
 
   const newTodo = {
