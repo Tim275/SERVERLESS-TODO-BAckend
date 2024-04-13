@@ -16,3 +16,4 @@ app.get('/fetchTodos', async (req, res) => {
 });
 
 module.exports.handler = serverless(app);
+

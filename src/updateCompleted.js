@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 app.put('/updateCompleted/:id', async (req, res) => {
-    const { id } = req.params;
+    const id = Number(req.params.id); // Convert id to a number
     const { completed } = req.body;
   
     let updateExpression = 'set #completed = :completed';
@@ -22,7 +22,7 @@ app.put('/updateCompleted/:id', async (req, res) => {
   
     const params = {
       TableName: "NewTodoTable", 
-      Key: { id: Number(id) },
+      Key: { id: id },
       UpdateExpression: updateExpression,
       ExpressionAttributeNames: ExpressionAttributeNames,
       ExpressionAttributeValues: ExpressionAttributeValues,
@@ -36,6 +36,6 @@ app.put('/updateCompleted/:id', async (req, res) => {
       console.error('Error updating todo:', error);
       res.json({ success: false, message: 'Error updating todo' });
     }
-  });
+});
   
-  module.exports.handler = serverless(app);
+module.exports.handler = serverless(app);

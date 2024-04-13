@@ -1,0 +1,6 @@
+- Effect: Allow
+  Action: "dynamodb:*"
+  Resource: arn:aws:dynamodb:eu-central-1:506820257931:table/NewTodoTable
+
+
+  # DYNAMODB_TABLE_ARN=arn:aws:dynamodb:eu-central-1:506820257931:table/NewTodoTable

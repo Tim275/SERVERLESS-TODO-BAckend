@@ -24,10 +24,7 @@ app.delete('/deleteTodo/:id', async (req, res) => {
       Key: { id: Number(id) } 
     }).promise();
 
-    res.status(200).set({
-      'Access-Control-Allow-Origin': '*', // This will allow all origins
-      'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,DELETE'
-    }).json({ 
+    res.status(200).json({ 
       message: `Todo with ID: ${id} deleted successfully`
     });
   } catch (error) {
